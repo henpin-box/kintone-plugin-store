@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "subtable-sort",
+    "title": "サブテーブル並び替え（昇順/降順）",
+    "price": 300,
+    "summary": "明細をワンクリで昇順/降順。空欄は末尾、数値/日付も自動認識。",
+    "tags": ["編集画面", "サブテーブル", "並び替え"],
+    "image": "assets/placeholder.svg",
+    "storesUrl": "https://stores.jp/example/subtable-sort",
+    "screens": "PC / 編集・新規",
+    "features": [
+      "昇順/降順/元に戻す",
+      "空欄は末尾",
+      "保存で順序維持"
+    ],
+    "limitations": [
+      "大規模行数では時間がかかる場合あり"
+    ],
+    "faq": [
+      {
+        "q": "モバイル対応は？",
+        "a": "現状PCのみ。要望があれば対応予定。"
+      }
+    ]
+  },
+  {
+    "slug": "copy-field",
+    "title": "フィールド値一括コピー",
+    "price": 200,
+    "summary": "選択フィールドの値を他レコードに一括コピー。作業効率10倍アップ。",
+    "tags": ["一覧画面", "レコード編集", "コピー"],
+    "image": "assets/placeholder.svg",
+    "storesUrl": "https://stores.jp/example/copy-field",
+    "screens": "PC / 一覧画面",
+    "features": [
+      "複数レコード一括選択",
+      "フィールド指定コピー",
+      "確認ダイアログ付き"
+    ],
+    "limitations": [
+      "添付ファイルフィールドは除外"
+    ],
+    "faq": [
+      {
+        "q": "どんなフィールドに対応？",
+        "a": "文字列、数値、日付、ラジオボタン、チェックボックスなど基本フィールドに対応。"
+      }
+    ]
+  },
+  {
+    "slug": "list-aggregate",
+    "title": "一覧画面集計表示",
+    "price": 400,
+    "summary": "一覧画面の下部に合計・平均・件数を表示。リアルタイム計算。",
+    "tags": ["一覧画面", "集計", "計算"],
+    "image": "assets/placeholder.svg",
+    "storesUrl": "https://stores.jp/example/list-aggregate",
+    "screens": "PC / 一覧画面",
+    "features": [
+      "合計・平均・件数・最大・最小",
+      "フィルタ連動",
+      "複数フィールド対応"
+    ],
+    "limitations": [
+      "計算フィールドの集計は非対応"
+    ],
+    "faq": [
+      {
+        "q": "フィルタしても集計される？",
+        "a": "はい。表示中のレコードのみ集計されます。"
+      }
+    ]
+  },
+  {
+    "slug": "dark-mode",
+    "title": "ダークモード切り替え",
+    "price": 150,
+    "summary": "ワンクリックでダークテーマに切り替え。目に優しい夜間作業。",
+    "tags": ["UI", "テーマ", "アクセシビリティ"],
+    "image": "assets/placeholder.svg", 
+    "storesUrl": "https://stores.jp/example/dark-mode",
+    "screens": "PC / 全画面",
+    "features": [
+      "ワンクリック切り替え",
+      "設定保存",
+      "目に優しい配色"
+    ],
+    "limitations": [
+      "一部プラグインで表示崩れの可能性"
+    ],
+    "faq": [
+      {
+        "q": "設定は保存される？",
+        "a": "ブラウザに保存され、次回アクセス時も維持されます。"
+      }
+    ]
+  }
+]
