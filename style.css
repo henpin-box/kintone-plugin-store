@@ -91,11 +91,11 @@
   border: 1px solid var(--kb-line);
   border-radius: var(--kb-radius);
   background: var(--kb-surface);
-  color: var(--kb-text);
+  color: var(--kb-text) !important;
   font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
-  text-decoration: none;
+  text-decoration: none !important;
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 32px;
@@ -104,6 +104,8 @@
 .kb-btn:hover {
   background: color-mix(in srgb, var(--kb-surface) 90%, black);
   border-color: color-mix(in srgb, var(--kb-line) 80%, black);
+  color: var(--kb-text) !important;
+  text-decoration: none !important;
 }
 
 .kb-btn:focus-visible {
@@ -112,28 +114,28 @@
 }
 
 .kb-btn-primary {
-  background: var(--kb-primary);
-  color: var(--kb-primary-ink);
+  background: var(--kb-primary) !important;
+  color: var(--kb-primary-ink) !important;
   border-color: var(--kb-primary);
 }
 
 .kb-btn-primary:hover {
-  background: color-mix(in srgb, var(--kb-primary) 90%, black);
+  background: color-mix(in srgb, var(--kb-primary) 90%, black) !important;
   border-color: color-mix(in srgb, var(--kb-primary) 90%, black);
-  color: var(--kb-primary-ink);
-  text-decoration: none;
+  color: var(--kb-primary-ink) !important;
+  text-decoration: none !important;
 }
 
 .kb-btn-secondary {
   background: transparent;
-  color: var(--kb-primary);
+  color: var(--kb-primary) !important;
   border-color: var(--kb-primary);
 }
 
 .kb-btn-secondary:hover {
   background: color-mix(in srgb, var(--kb-primary) 10%, transparent);
-  color: var(--kb-primary);
-  text-decoration: none;
+  color: var(--kb-primary) !important;
+  text-decoration: none !important;
 }
 
 /* Card */
