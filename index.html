@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +13,29 @@
 </head>
 <body>
     <div class="kb-root" data-kb-theme="light">
+        <!-- 言語・通貨切り替え -->
+        <div class="kb-language-switcher">
+            <div class="kb-container">
+                <div class="kb-switcher-controls">
+                    <div class="kb-lang-toggle">
+                        <button class="kb-lang-btn active" data-lang="ja">日本語</button>
+                        <button class="kb-lang-btn" data-lang="en">English</button>
+                    </div>
+                    <div class="kb-currency-toggle">
+                        <button class="kb-currency-btn active" data-currency="jpy">JPY (¥)</button>
+                        <button class="kb-currency-btn" data-currency="usd">USD ($)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ヒーローセクション -->
         <header class="kb-hero">
             <div class="kb-container">
-                <h1 class="kb-hero-title">標準に"あと一歩"を足す。<br>Kintone向けミニ拡張。</h1>
-                <p class="kb-hero-subtitle">導入30秒。1機能100円〜。不具合報告のみの軽サポート。</p>
+                <h1 class="kb-hero-title" data-i18n="hero.title">標準に"あと一歩"を足す。<br>Kintone向けミニ拡張。</h1>
+                <p class="kb-hero-subtitle" data-i18n="hero.subtitle">導入30秒。1機能100円〜。不具合報告のみの軽サポート。</p>
                 <div class="kb-hero-actions">
-                    <a href="#products" class="kb-btn kb-btn-primary">商品一覧を見る</a>
+                    <a href="#products" class="kb-btn kb-btn-primary" data-i18n="hero.viewProducts">商品一覧を見る</a>
                 </div>
             </div>
         </header>
@@ -27,12 +43,12 @@
         <!-- 商品グリッド -->
         <section id="products" class="kb-section">
             <div class="kb-container">
-                <h2 class="kb-section-title">商品一覧</h2>
+                <h2 class="kb-section-title" data-i18n="sections.products">商品一覧</h2>
                 <div id="products-grid" class="kb-grid">
                     <!-- app.jsで動的に生成 -->
                 </div>
-                <div id="loading" class="kb-loading">商品を読み込み中...</div>
-                <div id="error" class="kb-error" style="display: none;">
+                <div id="loading" class="kb-loading" data-i18n="messages.loading">商品を読み込み中...</div>
+                <div id="error" class="kb-error" style="display: none;" data-i18n="messages.error">
                     商品の読み込みに失敗しました。ページを再読み込みしてください。
                 </div>
             </div>
@@ -41,23 +57,23 @@
         <!-- FAQ -->
         <section id="faq" class="kb-section">
             <div class="kb-container">
-                <h2 class="kb-section-title">よくある質問</h2>
+                <h2 class="kb-section-title" data-i18n="sections.faq">よくある質問</h2>
                 <div class="kb-faq">
                     <div class="kb-faq-item">
-                        <h3 class="kb-faq-question">動作環境は？</h3>
-                        <p class="kb-faq-answer">Kintone標準のブラウザ（Chrome、Safari、Edge、Firefox）で動作します。Internet Explorerは非対応です。</p>
+                        <h3 class="kb-faq-question" data-i18n="faq.q1">動作環境は？</h3>
+                        <p class="kb-faq-answer" data-i18n="faq.a1">Kintone標準のブラウザ（Chrome、Safari、Edge、Firefox）で動作します。Internet Explorerは非対応です。</p>
                     </div>
                     <div class="kb-faq-item">
-                        <h3 class="kb-faq-question">サポート範囲は？</h3>
-                        <p class="kb-faq-answer">不具合報告のみの軽サポートです。カスタマイズ依頼や使い方サポートは対象外となります。</p>
+                        <h3 class="kb-faq-question" data-i18n="faq.q2">サポート範囲は？</h3>
+                        <p class="kb-faq-answer" data-i18n="faq.a2">不具合報告のみの軽サポートです。カスタマイズ依頼や使い方サポートは対象外となります。</p>
                     </div>
                     <div class="kb-faq-item">
-                        <h3 class="kb-faq-question">返金ポリシーは？</h3>
-                        <p class="kb-faq-answer">デジタル商品の性質上、ダウンロード後の返金は原則として承っておりません。事前に動作環境をご確認ください。</p>
+                        <h3 class="kb-faq-question" data-i18n="faq.q3">返金ポリシーは？</h3>
+                        <p class="kb-faq-answer" data-i18n="faq.a3">デジタル商品の性質上、ダウンロード後の返金は原則として承っておりません。事前に動作環境をご確認ください。</p>
                     </div>
                     <div class="kb-faq-item">
-                        <h3 class="kb-faq-question">他のプラグインとの干渉は？</h3>
-                        <p class="kb-faq-answer">他社製プラグインとの干渉により動作しない場合は、サポート対象外となります。ご了承ください。</p>
+                        <h3 class="kb-faq-question" data-i18n="faq.q4">他のプラグインとの干渉は？</h3>
+                        <p class="kb-faq-answer" data-i18n="faq.a4">他社製プラグインとの干渉により動作しない場合は、サポート対象外となります。ご了承ください。</p>
                     </div>
                 </div>
             </div>
@@ -66,18 +82,18 @@
         <!-- 利用規約・プライバシーポリシー -->
         <section id="terms" class="kb-section">
             <div class="kb-container">
-                <h2 class="kb-section-title">利用規約・プライバシーポリシー</h2>
+                <h2 class="kb-section-title" data-i18n="sections.terms">利用規約・プライバシーポリシー</h2>
                 <div class="kb-text-content">
-                    <h3>利用規約</h3>
-                    <p>本サービスのご利用には、以下の規約にご同意いただく必要があります。購入により、本規約に同意したものとみなします。</p>
-                    <ul>
+                    <h3 data-i18n="terms.title">利用規約</h3>
+                    <p data-i18n="terms.content">本サービスのご利用には、以下の規約にご同意いただく必要があります。購入により、本規約に同意したものとみなします。</p>
+                    <ul id="terms-list">
                         <li>商品は現状有姿で提供され、動作保証はありません</li>
                         <li>再配布・転売は禁止です</li>
                         <li>サポートは不具合報告のみとなります</li>
                     </ul>
                     
-                    <h3>プライバシーポリシー</h3>
-                    <p>お客様の個人情報は、商品提供およびサポート目的でのみ使用し、第三者に提供することはありません。</p>
+                    <h3 data-i18n="terms.privacy.title">プライバシーポリシー</h3>
+                    <p data-i18n="terms.privacy.content">お客様の個人情報は、商品提供およびサポート目的でのみ使用し、第三者に提供することはありません。</p>
                 </div>
             </div>
         </section>
@@ -86,10 +102,10 @@
         <footer class="kb-footer">
             <div class="kb-container">
                 <div class="kb-footer-content">
-                    <p class="kb-footer-copyright">&copy; 2024 Kintone Mini Plugins. All rights reserved.</p>
+                    <p class="kb-footer-copyright" data-i18n="footer.copyright">&copy; 2024 Kintone Mini Plugins. All rights reserved.</p>
                     <div class="kb-footer-links">
-                        <a href="mailto:support@example.com" class="kb-footer-link">不具合報告</a>
-                        <a href="#terms" class="kb-footer-link">利用規約</a>
+                        <a href="mailto:support@example.com" class="kb-footer-link" data-i18n="footer.bugReport">不具合報告</a>
+                        <a href="#terms" class="kb-footer-link" data-i18n="footer.terms">利用規約</a>
                     </div>
                 </div>
             </div>

@@ -209,6 +209,54 @@
 
 /* ===== LAYOUT COMPONENTS ===== */
 
+/* Language Switcher */
+.kb-language-switcher {
+  background: var(--kb-surface);
+  border-bottom: 1px solid var(--kb-line);
+  padding: var(--kb-gap) 0;
+}
+
+.kb-switcher-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--kb-gap-lg);
+}
+
+.kb-lang-toggle,
+.kb-currency-toggle {
+  display: flex;
+  gap: calc(var(--kb-gap) / 2);
+}
+
+.kb-lang-btn,
+.kb-currency-btn {
+  padding: calc(var(--kb-gap) / 2) var(--kb-gap);
+  border: 1px solid var(--kb-line);
+  border-radius: calc(var(--kb-radius) / 2);
+  background: transparent;
+  color: var(--kb-sub);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.kb-lang-btn:hover,
+.kb-currency-btn:hover {
+  background: color-mix(in srgb, var(--kb-primary) 10%, transparent);
+  color: var(--kb-primary);
+  border-color: var(--kb-primary);
+}
+
+.kb-lang-btn.active,
+.kb-currency-btn.active {
+  background: var(--kb-primary);
+  color: var(--kb-primary-ink);
+  border-color: var(--kb-primary);
+}
+
 /* Hero */
 .kb-hero {
   background: var(--kb-surface);
@@ -604,6 +652,17 @@
     padding: 0 var(--kb-gap);
   }
   
+  .kb-switcher-controls {
+    flex-direction: column;
+    gap: var(--kb-gap);
+    align-items: stretch;
+  }
+  
+  .kb-lang-toggle,
+  .kb-currency-toggle {
+    justify-content: center;
+  }
+  
   .kb-hero-title {
     font-size: 28px;
   }
@@ -639,4 +698,33 @@
     flex-direction: column;
     text-align: center;
   }
+}
+
+/* 英語表示用の調整 */
+[lang="en"] .kb-hero-title {
+  line-height: 1.2;
+}
+
+[lang="en"] .kb-product-title {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+[lang="en"] .kb-product-summary {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+[lang="en"] .kb-tag {
+  font-size: 11px;
+}
+
+/* 長いテキスト用の調整 */
+[lang="en"] .kb-faq-question,
+[lang="en"] .kb-faq-answer {
+  line-height: 1.6;
+}
+
+[lang="en"] .kb-text-content p {
+  line-height: 1.7;
 }

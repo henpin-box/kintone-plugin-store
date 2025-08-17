@@ -1,5 +1,29 @@
 // Kintoneミニプラグイン販売サイト - メインスクリプト
 
+// グローバル変数
+let currentLang = 'ja';
+let currentCurrency = 'jpy';
+let translations = {};
+let products = [];
+
+// 翻訳データをロード
+async function loadTranslations() {
+    try {
+        const response = await fetch('translations.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        translations = await response.json();
+    } catch (error) {
+        console.error('翻訳データの読み込みに失敗しました:', error);
+        // フォールバック用のデフォルト翻訳
+        translations = {
+            ja: { site: { title: 'Kintone向けミニプラグイン' } },
+            en: { site: { title: 'Kintone Mini Plugins' } }
+        };
+    }
+}
+
 // 商品データをロードして表示
 async function loadProducts() {
     try {
@@ -7,7 +31,7 @@ async function loadProducts() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const products = await response.json();
+        products = await response.json();
         
         displayProducts(products);
         hideLoading();
@@ -24,27 +48,38 @@ function displayProducts(products) {
     const gridContainer = document.getElementById('products-grid');
     if (!gridContainer) return;
     
-    gridContainer.innerHTML = products.map(product => `
-        <div class="kb-product-card">
-            <div class="kb-product-image">
-                <img src="${product.image}" alt="${product.title}" width="280" height="160" loading="lazy">
+    gridContainer.innerHTML = products.map(product => {
+        const title = currentLang === 'en' ? (product.titleEn || product.title) : product.title;
+        const summary = currentLang === 'en' ? (product.summaryEn || product.summary) : product.summary;
+        const tags = currentLang === 'en' ? (product.tagsEn || product.tags) : product.tags;
+        const price = currentCurrency === 'usd' ? product.priceUsd || Math.round(product.price / 130) : product.price;
+        const currency = currentCurrency === 'usd' ? '$' : '¥';
+        const storesUrl = currentLang === 'en' ? (product.storesUrlEn || product.storesUrl) : product.storesUrl;
+        const detailText = getTranslation('buttons.details') || '詳細';
+        const purchaseText = getTranslation('buttons.purchase') || '購入';
+        
+        return `
+            <div class="kb-product-card">
+                <div class="kb-product-image">
+                    <img src="${product.image}" alt="${title}" width="280" height="160" loading="lazy">
+                </div>
+                <div class="kb-product-info">
+                    <h3 class="kb-product-title">${title}</h3>
+                    <p class="kb-product-summary">${summary}</p>
+                    <div class="kb-tags">
+                        ${tags.map(tag => `<span class="kb-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="kb-product-meta">
+                        <span class="kb-product-price">${currency}${price}</span>
+                    </div>
+                    <div class="kb-product-actions">
+                        <a href="products/${product.slug}.html" class="kb-btn">${detailText}</a>
+                        <a href="${storesUrl}" class="kb-btn kb-btn-primary" target="_blank" rel="noopener">${purchaseText}</a>
+                    </div>
+                </div>
             </div>
-            <div class="kb-product-info">
-                <h3 class="kb-product-title">${product.title}</h3>
-                <p class="kb-product-summary">${product.summary}</p>
-                <div class="kb-tags">
-                    ${product.tags.map(tag => `<span class="kb-tag">${tag}</span>`).join('')}
-                </div>
-                <div class="kb-product-meta">
-                    <span class="kb-product-price">¥${product.price}</span>
-                </div>
-                <div class="kb-product-actions">
-                    <a href="products/${product.slug}.html" class="kb-btn">詳細</a>
-                    <a href="${product.storesUrl}" class="kb-btn kb-btn-primary" target="_blank" rel="noopener">購入</a>
-                </div>
-            </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // ローディング非表示
@@ -61,6 +96,115 @@ function showError() {
     if (error) {
         error.style.display = 'block';
     }
+}
+
+// 翻訳取得
+function getTranslation(key) {
+    const keys = key.split('.');
+    let value = translations[currentLang];
+    
+    for (const k of keys) {
+        if (value && value[k]) {
+            value = value[k];
+        } else {
+            return null;
+        }
+    }
+    
+    return value;
+}
+
+// UI要素を翻訳
+function updateUITranslations() {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translation = getTranslation(key);
+        if (translation) {
+            element.innerHTML = translation;
+        }
+    });
+    
+    // 利用規約リストを更新
+    updateTermsList();
+    
+    // ページタイトルを更新
+    const titleKey = currentLang === 'en' ? 'site.title' : 'site.title';
+    const title = getTranslation(titleKey);
+    if (title) {
+        document.title = title;
+    }
+    
+    // HTML lang属性を更新
+    document.getElementById('html-root').setAttribute('lang', currentLang);
+}
+
+// 利用規約リストを動的更新
+function updateTermsList() {
+    const termsList = document.getElementById('terms-list');
+    if (!termsList) return;
+    
+    const termsItems = getTranslation('terms.items');
+    if (termsItems && Array.isArray(termsItems)) {
+        termsList.innerHTML = termsItems.map(item => `<li>${item}</li>`).join('');
+    }
+}
+
+// 言語切り替え
+function switchLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('preferred-language', lang);
+    
+    // ボタンの状態更新
+    document.querySelectorAll('.kb-lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    
+    updateUITranslations();
+    
+    // 商品表示を更新
+    if (products.length > 0) {
+        displayProducts(products);
+    }
+}
+
+// 通貨切り替え
+function switchCurrency(currency) {
+    currentCurrency = currency;
+    localStorage.setItem('preferred-currency', currency);
+    
+    // ボタンの状態更新
+    document.querySelectorAll('.kb-currency-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-currency') === currency);
+    });
+    
+    // 商品表示を更新
+    if (products.length > 0) {
+        displayProducts(products);
+    }
+}
+
+// 設定を復元
+function restoreSettings() {
+    const savedLang = localStorage.getItem('preferred-language');
+    const savedCurrency = localStorage.getItem('preferred-currency');
+    
+    if (savedLang && ['ja', 'en'].includes(savedLang)) {
+        currentLang = savedLang;
+    }
+    
+    if (savedCurrency && ['jpy', 'usd'].includes(savedCurrency)) {
+        currentCurrency = savedCurrency;
+    }
+    
+    // ボタンの初期状態を設定
+    document.querySelectorAll('.kb-lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+    });
+    
+    document.querySelectorAll('.kb-currency-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-currency') === currentCurrency);
+    });
 }
 
 // トースト表示
@@ -157,8 +301,20 @@ function trackDetailClick(productTitle, detailUrl) {
 
 // イベントリスナーの設定
 function setupEventListeners() {
-    // 購入ボタンのクリック追跡
+    // 言語切り替えボタン
     document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('kb-lang-btn')) {
+            const lang = e.target.getAttribute('data-lang');
+            switchLanguage(lang);
+        }
+        
+        // 通貨切り替えボタン
+        if (e.target.classList.contains('kb-currency-btn')) {
+            const currency = e.target.getAttribute('data-currency');
+            switchCurrency(currency);
+        }
+        
+        // 購入ボタンのクリック追跡
         const target = e.target.closest('a[href*="stores.jp"]');
         if (target) {
             const productCard = target.closest('.kb-product-card');
@@ -170,7 +326,7 @@ function setupEventListeners() {
         
         // 詳細ボタンのクリック追跡
         const detailTarget = e.target.closest('a[href*="products/"]');
-        if (detailTarget && detailTarget.textContent.includes('詳細')) {
+        if (detailTarget && (detailTarget.textContent.includes('詳細') || detailTarget.textContent.includes('Details'))) {
             const productCard = detailTarget.closest('.kb-product-card');
             if (productCard) {
                 const productTitle = productCard.querySelector('.kb-product-title')?.textContent || 'Unknown';
@@ -238,10 +394,19 @@ function enhanceAccessibility() {
 }
 
 // 初期化
-function init() {
+async function init() {
+    // 翻訳データをロード
+    await loadTranslations();
+    
+    // 設定を復元
+    restoreSettings();
+    
+    // UI翻訳を適用
+    updateUITranslations();
+    
     // メインページでのみ商品ロード
     if (document.getElementById('products-grid')) {
-        loadProducts();
+        await loadProducts();
     }
     
     setupSmoothScroll();
