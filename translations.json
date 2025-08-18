@@ -24,6 +24,29 @@
       "price": "価格",
       "screens": "対応画面",
       "features": "機能",
+      "screenshots": "スクリーンショット",
+      "fileSize": "ファイルサイズ",
+      "lastUpdated": "更新日",
+      "howToUse": "使い方",
+      "step1": {
+        "title": "プラグインをインストール",
+        "description": "Kintoneシステム管理からプラグインファイルをアップロードしてください。"
+      },
+      "step2": {
+        "title": "アプリに追加",
+        "description": "対象アプリの設定からプラグインを有効化してください。"
+      },
+      "step3": {
+        "title": "サブテーブルで並び替え",
+        "description": "編集画面でサブテーブルのヘッダーをクリックして並び替えできます。"
+      },
+      "category": "編集効率化",
+      "fileSizeValue": "約15KB",
+      "lastUpdatedValue": "2024年8月",
+      "relatedProduct1": "フィールド値一括コピー",
+      "relatedProduct2": "一覧画面集計表示",
+      "ctaTitle": "サブテーブル並び替えを今すぐ導入",
+      "ctaDescription": "作業効率を向上させる並び替え機能をお試しください。",
       "limitations": "制限事項",
       "faq": "よくある質問",
       "relatedProducts": "関連商品"
@@ -87,6 +110,29 @@
       "price": "Price",
       "screens": "Compatible Screens",
       "features": "Features",
+      "screenshots": "Screenshots",
+      "fileSize": "File Size",
+      "lastUpdated": "Last Updated",
+      "howToUse": "How to Use",
+      "step1": {
+        "title": "Install Plugin",
+        "description": "Upload the plugin file from Kintone system administration."
+      },
+      "step2": {
+        "title": "Add to App",
+        "description": "Enable the plugin from the target app settings."
+      },
+      "step3": {
+        "title": "Sort in Subtable",
+        "description": "Click subtable headers in the edit screen to sort."
+      },
+      "category": "Edit Efficiency",
+      "fileSizeValue": "About 15KB",
+      "lastUpdatedValue": "August 2024",
+      "relatedProduct1": "Field Value Bulk Copy",
+      "relatedProduct2": "List View Aggregation Display",
+      "ctaTitle": "Introduce Subtable Sorting Now",
+      "ctaDescription": "Try the sorting feature that improves work efficiency.",
       "limitations": "Limitations",
       "faq": "FAQ",
       "relatedProducts": "Related Products"
