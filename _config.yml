@@ -1,0 +1,11 @@
+title: Puchi Add-on Plugins
+url: "https://<user>.github.io"     # ←ユーザー/組織URL
+baseurl: "/puchi-plugins"           # ←リポジトリ名（ユーザーサイトなら空に）
+
+collections:
+  products:
+    output: true                    # 各商品ページを生成
+
+defaults:
+  - scope: { path: "", type: products }
+    values: { layout: product }     # 商品ページのレイアウト既定
