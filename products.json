@@ -44,14 +44,14 @@
     ]
   },
   {
-    "slug": "copy-field",
-    "title": "フィールド値一括コピー",
-    "titleEn": "Bulk Field Value Copy",
+    "slug": "value-copy",
+    "title": "フィールド値コピー",
+    "titleEn": "Field Value Copy",
     "price": 150,
     "priceUsd": 1.50,
-    "summary": "選択フィールドの値を他レコードに一括コピー。作業効率10倍アップ。",
-    "summaryEn": "Bulk copy selected field values to other records. 10x efficiency boost.",
-    "tags": ["一覧画面", "レコード編集", "コピー"],
+    "summary": "選択フィールドの値をクリップボードにコピー。作業効率アップ。",
+    "summaryEn": "Copy field value to Clip board. Efficiency boost.",
+    "tags": ["一覧画面", "レコード詳細画面", "コピー"],
     "tagsEn": ["List View", "Record Edit", "Copy"],
     "image": "assets/placeholder.svg",
     "storesUrl": "https://stores.jp/example/copy-field",
@@ -59,20 +59,16 @@
     "screens": "PC / 一覧画面",
     "screensEn": "PC / List View",
     "features": [
-      "複数レコード一括選択",
-      "フィールド指定コピー",
-      "確認ダイアログ付き"
+      "フィールドコピー"
     ],
     "featuresEn": [
-      "Multiple record bulk selection",
-      "Field-specific copy",
-      "Confirmation dialog included"
+      "Field-value copy"
     ],
     "limitations": [
-      "添付ファイルフィールドは除外"
+      "添付ファイル、サブテーブルフィールドは除外"
     ],
     "limitationsEn": [
-      "Attachment fields are excluded"
+      "Attachment fields and sub-table fields are excluded"
     ],
     "faq": [
       {
