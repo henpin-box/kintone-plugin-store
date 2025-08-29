@@ -1,6 +1,6 @@
 title: Puchi Add-on Plugins
 url: "https://<your-username>.github.io"
-baseurl: ""
+baseurl: "kintone-plugin-store"
 
 collections:
   products:
