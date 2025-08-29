@@ -1,15 +1,40 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="{{ page.lang | default: 'ja' }}">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ page.title }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
 </head>
 <body>
-  <h1>{{ page.title }}</h1>
-  <p><strong>価格:</strong> ¥{{ page.price_jpy }}</p>
-  <div>
-    {{ content }}
-  </div>
-  <p><a href="{{ page.purchase_url }}" target="_blank">購入ページへ</a></p>
+  <main class="container">
+    <article class="product">
+      <h1 class="product__title">{{ page.title }}</h1>
+
+      {% if page.images %}
+        <img class="product__hero" src="{{ page.images[0] | relative_url }}" alt="">
+      {% endif %}
+
+      {% if page.summary %}
+        <p class="product__summary">{{ page.summary }}</p>
+      {% endif %}
+
+      <div class="product__buy">
+        <button data-payhip="{{ page.payhip_id }}">
+          {% if page.lang == "en" %}Buy Now (${{ page.price_usd }})
+          {% else %}購入する (¥{{ page.price_jpy }}){% endif %}
+        </button>
+      </div>
+      <script src="https://payhip.com/payhip.js"></script>
+
+      <div class="product__content">
+        {{ content }}  <!-- ← .md 本文 -->
+      </div>
+
+      <footer class="product__meta">
+        <small>v{{ page.version }} / 更新: {{ page.updated }}</small>
+      </footer>
+    </article>
+  </main>
 </body>
 </html>
