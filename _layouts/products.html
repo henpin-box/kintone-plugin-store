@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }}</title>
+</head>
+<body>
+  <h1>{{ page.title }}</h1>
+  <p><strong>価格:</strong> ¥{{ page.price_jpy }}</p>
+  <div>
+    {{ content }}
+  </div>
+  <p><a href="{{ page.purchase_url }}" target="_blank">購入ページへ</a></p>
+</body>
+</html>
