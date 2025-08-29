@@ -1,67 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Puchi Add-on Plugins</title>
-  <link rel="stylesheet" href="/assets/css/style.css" />
+  <meta charset="UTF-8">
+  <title>プラグイン一覧 | Puchi Add-on Plugins</title>
   <style>
     body {
       font-family: sans-serif;
-      background-color: #f8f9fa;
+      background-color: #f5f5f5;
       margin: 0;
       padding: 2rem;
     }
+
     h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
-    .grid {
+
+    .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.5rem;
     }
-    .card {
-      background-color: white;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 1.25rem;
+
+    .product-card {
+      background: white;
+      padding: 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    .card-title {
-      font-weight: bold;
+
+    .product-title {
       font-size: 1.1rem;
+      font-weight: bold;
       margin-bottom: 0.5rem;
     }
-    .card-desc {
+
+    .product-desc {
       font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 0.75rem;
+      color: #444;
+      margin-bottom: 0.5rem;
     }
-    .card-price {
-      font-size: 1rem;
+
+    .product-price {
+      font-size: 0.95rem;
       font-weight: bold;
-      color: #0070f3;
-    }
-    .card a {
-      text-decoration: none;
-      color: inherit;
+      color: #1a73e8;
     }
   </style>
 </head>
 <body>
   <h1>プラグイン一覧</h1>
-  <div class="grid">
+  <div class="product-grid">
     {% for product in site.data.products %}
-    <a href="{{ product.PURCHASE_URL }}" class="card">
-      <div class="card-title">{{ product.PRODUCT_NAME_JA }}</div>
-      <div class="card-desc">{{ product.SHORT_DESC_JA }}</div>
-      <div class="card-price">{{ product.PRICE_JPY }}</div>
-    </a>
+      <div class="product-card">
+        <div class="product-title">
+          <a href="{{ product.PURCHASE_URL }}" target="_blank">{{ product.PRODUCT_NAME_JA }}</a>
+        </div>
+        <div class="product-desc">{{ product.SHORT_DESC_JA }}</div>
+        <div class="product-price">¥{{ product.PRICE_JPY }}</div>
+      </div>
     {% endfor %}
   </div>
 </body>
