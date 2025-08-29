@@ -4,36 +4,148 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{{ page.title }} | {{ site.title }}</title>
+
+  <meta name="description" content="{{ page.summary | default: site.title }}">
   <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+
+  <!-- OG -->
+  <meta property="og:title" content="{{ page.title }} | {{ site.title }}">
+  <meta property="og:description" content="{{ page.summary }}">
+  {% if page.images %}<meta property="og:image" content="{{ page.images[0] | relative_url }}">{% endif %}
+
+  <!-- JSON-LD (Product) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Product",
+    "name":"{{ page.title | escape }}",
+    "description":"{{ page.summary | escape }}",
+    {% if page.images %}"image":"{{ page.images[0] | absolute_url }}",{% endif %}
+    "offers":{
+      "@type":"Offer",
+      "price":"{{ page.price_jpy | default: page.price_usd }}",
+      "priceCurrency":"{{ page.lang == 'en' | ternary: 'USD', 'JPY' }}",
+      "url":"{{ page.url | absolute_url }}",
+      "availability":"https://schema.org/InStock"
+    }
+  }
+  </script>
 </head>
 <body>
   <main class="container">
-    <article class="product">
-      <h1 class="product__title">{{ page.title }}</h1>
+    <nav class="breadcrumb">
+      <a href="{{ '/' | relative_url }}">Home</a> / <a href="{{ '/' | relative_url }}#plugins">Plugins</a> / <span>{{ page.title }}</span>
+    </nav>
 
-      {% if page.images %}
-        <img class="product__hero" src="{{ page.images[0] | relative_url }}" alt="">
-      {% endif %}
+    <article class="product layout">
+      <div class="product-main">
+        <h1 class="product__title">{{ page.title }}</h1>
 
-      {% if page.summary %}
-        <p class="product__summary">{{ page.summary }}</p>
-      {% endif %}
+        {% if page.images %}
+          <img class="product__hero" src="{{ page.images[0] | relative_url }}" alt="">
+        {% endif %}
 
-      <div class="product__buy">
-        <button data-payhip="{{ page.payhip_id }}">
-          {% if page.lang == "en" %}Buy Now (${{ page.price_usd }})
-          {% else %}購入する (¥{{ page.price_jpy }}){% endif %}
-        </button>
+        {% if page.summary %}
+          <p class="product__summary">{{ page.summary }}</p>
+        {% endif %}
+
+        <section class="section">
+          <h2>概要</h2>
+          <div class="product__content">
+            {{ content }}  <!-- ← .md 本文が入る -->
+          </div>
+        </section>
+
+        {% if page.features %}
+        <section class="section">
+          <h2>主な機能</h2>
+          <ul class="feature-list">
+            {% for f in page.features %}<li>{{ f }}</li>{% endfor %}
+          </ul>
+        </section>
+        {% endif %}
+
+        {% if page.screenshots %}
+        <section class="section">
+          <h2>スクリーンショット</h2>
+          <div class="gallery">
+            {% for s in page.screenshots %}
+              <img src="{{ s | relative_url }}" alt="">
+            {% endfor %}
+          </div>
+        </section>
+        {% endif %}
+
+        <section class="section">
+          <h2>仕様</h2>
+          <table class="spec">
+            <tbody>
+              {% if page.compat %}<tr><th>対応環境</th><td>{{ page.compat }}</td></tr>{% endif %}
+              {% if page.file_size %}<tr><th>ファイルサイズ</th><td>{{ page.file_size }}</td></tr>{% endif %}
+              <tr><th>バージョン</th><td>{{ page.version }}</td></tr>
+              <tr><th>最終更新</th><td>{{ page.updated }}</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        {% if page.changelog %}
+        <section class="section">
+          <h2>更新履歴</h2>
+          <ul class="changelog">
+            {% for c in page.changelog %}
+            <li><strong>{{ c.date }}</strong> — {{ c.note }}</li>
+            {% endfor %}
+          </ul>
+        </section>
+        {% endif %}
+
+        {% if page.faq %}
+        <section class="section">
+          <h2>よくある質問</h2>
+          <dl class="faq">
+            {% for q in page.faq %}
+              <dt>{{ q.q }}</dt>
+              <dd>{{ q.a }}</dd>
+            {% endfor %}
+          </dl>
+        </section>
+        {% endif %}
+
+        <nav class="pager">
+          {% if page.previous %}<a class="prev" href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% endif %}
+          {% if page.next %}<a class="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+        </nav>
       </div>
-      <script src="https://payhip.com/payhip.js"></script>
 
-      <div class="product__content">
-        {{ content }}  <!-- ← .md 本文 -->
-      </div>
+      <aside class="product-aside">
+        <div class="buy-card">
+          <div class="price">
+            {% if page.lang == 'en' %}
+              ${{ page.price_usd }}
+            {% else %}
+              ¥{{ page.price_jpy }}
+            {% endif %}
+          </div>
+          <button data-payhip="{{ page.payhip_id }}" class="buy-btn">
+            {% if page.lang == 'en' %}Buy Now{% else %}購入する{% endif %}
+          </button>
+          <script src="https://payhip.com/payhip.js"></script>
 
-      <footer class="product__meta">
-        <small>v{{ page.version }} / 更新: {{ page.updated }}</small>
-      </footer>
+          {% if page.docs_url %}
+          <a class="secondary" href="{{ page.docs_url }}" target="_blank">ドキュメント</a>
+          {% endif %}
+          {% if page.support_email %}
+          <a class="secondary" href="mailto:{{ page.support_email }}">サポートに連絡</a>
+          {% endif %}
+        </div>
+        {% if page.images.size > 1 %}
+        <div class="thumbs">
+          {% for s in page.images offset:1 %}
+            <img src="{{ s | relative_url }}" alt="">
+          {% endfor %}
+        </div>
+        {% endif %}
+      </aside>
     </article>
   </main>
 </body>
