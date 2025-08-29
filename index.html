@@ -1,34 +1,68 @@
----
-layout: null
----
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{{ site.title }}</title>
-  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puchi Add-on Plugins</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 1.25rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .card-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+    .card-price {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #0070f3;
+    }
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
 <body>
-  {% include header.html %}
-  <main class="container">
-    <h1>プラグイン一覧</h1>
-    <div class="cards">
-      {% for p in site.products %}
-        {% if p.lang == "ja" %}
-        <a class="card" href="{{ p.url | relative_url }}">
-          {% if p.images %}<img class="card__img" src="{{ p.images[0] | relative_url }}" alt="">{% endif %}
-          <div class="card__body">
-            <h2 class="card__title">{{ p.title }}</h2>
-            <p class="card__summary">{{ p.summary }}</p>
-            <div class="card__price">¥{{ p.price_jpy }}</div>
-          </div>
-        </a>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </main>
-  {% include footer.html %}
+  <h1>プラグイン一覧</h1>
+  <div class="grid">
+    {% for product in site.data.products %}
+    <a href="{{ product.PURCHASE_URL }}" class="card">
+      <div class="card-title">{{ product.PRODUCT_NAME_JA }}</div>
+      <div class="card-desc">{{ product.SHORT_DESC_JA }}</div>
+      <div class="card-price">{{ product.PRICE_JPY }}</div>
+    </a>
+    {% endfor %}
+  </div>
 </body>
 </html>
