@@ -1,0 +1,16 @@
+[
+  {
+    "PRODUCT_SLUG": "value-copy",
+    "PRODUCT_NAME_JA": "条件付き書式プラグイン",
+    "SHORT_DESC_JA": "一覧・詳細で条件に応じて色付け。事務員向けチェックが爆速。",
+    "PRICE_JPY": "1200",
+    "PURCHASE_URL": "https://stores.jp/example/value-copy"
+  },
+  {
+    "PRODUCT_SLUG": "subtable-sort",
+    "PRODUCT_NAME_JA": "サブテーブル並び替え",
+    "SHORT_DESC_JA": "明細をワンクリックで昇順/降順に。空欄や日付も考慮。",
+    "PRICE_JPY": "100",
+    "PURCHASE_URL": "https://stores.jp/example/subtable-sort"
+  }
+]
