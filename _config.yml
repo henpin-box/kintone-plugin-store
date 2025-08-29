@@ -1,0 +1,17 @@
+title: Puchi Add-on Plugins
+url: "https://<your-username>.github.io"
+baseurl: ""
+
+collections:
+  products:
+    output: true
+defaults:
+  - scope: { path: "", type: products }
+    values:
+      layout: product
+      permalink: /:slug/
+
+plugins:
+  - jekyll-sitemap
+
+languages: ["ja","en"]

@@ -1,0 +1,33 @@
+---
+layout: null
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ site.title }} - EN</title>
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+</head>
+<body>
+  {% include header.html %}
+  <main class="container">
+    <h1>Plugins</h1>
+    <div class="cards">
+      {% for p in site.products %}
+        {% if p.lang == "en" %}
+        <a class="card" href="{{ p.url | relative_url }}">
+          {% if p.images %}<img class="card__img" src="{{ p.images[0] | relative_url }}" alt="">{% endif %}
+          <div class="card__body">
+            <h2 class="card__title">{{ p.title }}</h2>
+            <p class="card__summary">{{ p.summary }}</p>
+            <div class="card__price">${{ p.price_usd }}</div>
+          </div>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </main>
+  {% include footer.html %}
+</body>
+</html>
